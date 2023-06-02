@@ -1,14 +1,15 @@
 <script>
-	import { browser } from '$app/environment';
-	import { page } from '$app/stores';
-	import { webVitals } from '$lib/vitals';
-	import Header from './Header.svelte';
-	import './styles.css';
+	import "../app.postcss";
+    import { browser } from '$app/environment';
+    import { page } from '$app/stores';
+    import { webVitals } from '$lib/vitals';
+    import Header from './Header.svelte';
+    import './styles.css';
 
-	/** @type {import('./$types').LayoutServerData} */
-	export let data;
+    /** @type {import('./$types').LayoutServerData} */
+    export let data;
 
-	$: if (browser && data?.analyticsId) {
+    $: if (browser && data?.analyticsId) {
 		webVitals({
 			path: $page.url.pathname,
 			params: $page.params,
@@ -18,10 +19,10 @@
 </script>
 
 <div class="app">
-	<Header />
+	<Header></Header>
 
 	<main>
-		<slot />
+		<slot></slot>
 	</main>
 
 	<footer>
