@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>IoT Dashboard</title>
+	<meta name="description" content="IoT Dashboard" />
 </svelte:head>
 
 <section>
