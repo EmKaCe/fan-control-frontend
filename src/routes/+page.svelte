@@ -1,5 +1,43 @@
 <script>
+	import Sensor from '$lib/cards/sensor.svelte';
 	import { Card } from 'flowbite-svelte';
+	let aussensensorList = [
+		{
+			name: 'Test',
+            value: undefined
+		},
+		{
+			name: 'Temperatur',
+			value: '32°C'
+		},
+		{
+			name: 'Rel. Luftfeuchtigkeit',
+			value: '50%'
+		},
+		{
+			name: 'Abs. Luftfeuchtigkeit',
+			value: '16.9 g/m³'
+		}
+	];
+	let innensensorList = [
+		{
+			name: 'Temperatur',
+			value: '34°C'
+		},
+		{
+			name: 'Rel. Luftfeuchtigkeit',
+			value: '55%'
+		},
+		{
+			name: 'Abs. Luftfeuchtigkeit',
+			value: '20.7 g/m³'
+		},
+		{
+			name: 'Akku',
+			value: '69%'
+		}
+	];
+	innensensorList = undefined;
 </script>
 
 <svelte:head>
@@ -18,11 +56,13 @@
 	</script>
 </svelte:head>
 
-<section class="grid md:grid-cols-2 md:grid-rows-2 gap-4 place-items-center h-full">
-	{#each [0, 1, 2, 3] as e}
-		<Card class="w-full">
+<Sensor title="Außensensor" list={aussensensorList} />
+<Sensor title="Innensensor" list={innensensorList} />
+{#each [2, 3] as e}
+	<section class="w-full">
+		<Card>
 			<h5>Test</h5>
 			<p>test card</p>
 		</Card>
-	{/each}
-</section>
+	</section>
+{/each}
