@@ -47,7 +47,7 @@
 		</Navbar>
 	</header>
 	<main class="flex-grow container mx-auto p-10 md:px-12">
-		<div class="grid md:grid-cols-2 md:grid-rows-2 gap-4 place-items-center h-full">
+		<div class="grid md:grid-cols-2 md:grid-rows-2 gap-x-4 gap-y-10 place-items-center h-full">
 			<slot />
 		</div>
 	</main>
