@@ -1,12 +1,8 @@
 <script>
 	import Sensor from '$lib/cards/sensor.svelte';
+	import Ventilation from '$lib/cards/ventilation.svelte';
 	import Weather from '$lib/cards/weather.svelte';
-	import { Card } from 'flowbite-svelte';
-	let aussensensorList = [
-		{
-			name: 'Test',
-			value: undefined
-		},
+	let innensensorList = [
 		{
 			name: 'Temperatur',
 			value: '32°C'
@@ -20,7 +16,7 @@
 			value: '16.9 g/m³'
 		}
 	];
-	let innensensorList = [
+	let aussensensorList = [
 		{
 			name: 'Temperatur',
 			value: '34°C'
@@ -38,7 +34,6 @@
 			value: '69%'
 		}
 	];
-	innensensorList = undefined;
 </script>
 
 <svelte:head>
@@ -57,12 +52,7 @@
 	</script>
 </svelte:head>
 
-<Sensor title="Außensensor" list={aussensensorList} />
 <Sensor title="Innensensor" list={innensensorList} />
-<section class="w-full">
-	<Card>
-		<h5>Test</h5>
-		<p>test card</p>
-	</Card>
-</section>
+<Sensor title="Außensensor" list={aussensensorList} />
 <Weather />
+<Ventilation />
