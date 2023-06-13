@@ -1,10 +1,11 @@
 <script>
 	import Sensor from '$lib/cards/sensor.svelte';
+	import Weather from '$lib/cards/weather.svelte';
 	import { Card } from 'flowbite-svelte';
 	let aussensensorList = [
 		{
 			name: 'Test',
-            value: undefined
+			value: undefined
 		},
 		{
 			name: 'Temperatur',
@@ -58,11 +59,10 @@
 
 <Sensor title="Außensensor" list={aussensensorList} />
 <Sensor title="Innensensor" list={innensensorList} />
-{#each [2, 3] as e}
-	<section class="w-full">
-		<Card>
-			<h5>Test</h5>
-			<p>test card</p>
-		</Card>
-	</section>
-{/each}
+<section class="w-full">
+	<Card>
+		<h5>Test</h5>
+		<p>test card</p>
+	</Card>
+</section>
+<Weather />
