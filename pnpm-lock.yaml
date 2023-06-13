@@ -17,6 +17,9 @@ dependencies:
   flowbite-svelte:
     specifier: ^0.37.3
     version: 0.37.3(svelte@3.59.1)
+  svelte-weather:
+    specifier: ^0.3.5
+    version: 0.3.5(svelte@3.59.1)
 
 devDependencies:
   '@fontsource/fira-mono':
@@ -2246,6 +2249,14 @@ packages:
       svelte: 3.59.1
       typescript: 5.0.4
     dev: true
+
+  /svelte-weather@0.3.5(svelte@3.59.1):
+    resolution: {integrity: sha512-yhFT9FFHs824+x2YBut85OYrRLDFBAJVntQS4L9YBbiu/gxlhZ8w4aCmBDP0qABkVI5wwndIE+yJioINZ97xFw==}
+    peerDependencies:
+      svelte: ^3.54.0 || ^4.0.0
+    dependencies:
+      svelte: 3.59.1
+    dev: false
 
   /svelte@3.59.1:
     resolution: {integrity: sha512-pKj8fEBmqf6mq3/NfrB9SLtcJcUvjYSWyePlfCqN9gujLB25RitWK8PvFzlwim6hD/We35KbPlRteuA6rnPGcQ==}
