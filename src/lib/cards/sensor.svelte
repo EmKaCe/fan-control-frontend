@@ -5,14 +5,14 @@
     export let list : {name: string; value?: string;}[];
 </script>
 
-<section class="w-full flex justify-center">
+<section class="w-full h-full flex justify-center">
 	<Card class="text-primary-700 dark:text-slate-200 grow" size="md">
-		<h5 class="mb-2 text-3xl font-bold tracking-tight text-center">{title}</h5>
+		<h5 class="mb-2 text-3xl font-bold tracking-tight pl-4">{title}</h5>
 		{#if list}
 			<Listgroup
 				items={list}
 				let:item
-				class="border-0 dark:!bg-transparent my-4 dark:text-slate-300"
+				class="border-0 dark:!bg-transparent my-4 text-slate-700 dark:text-slate-300 h-full flex flex-col justify-center"
 			>
 				<div class="flex items-center space-x-4">
 					<div class="flex-1 min-w-0">
