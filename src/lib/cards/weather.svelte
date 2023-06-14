@@ -9,17 +9,17 @@
 		zip: 53757,
 		forecast: [
 			{
-				temperatue: 31,
+				temperature: 31,
 				time: '13:00',
 				humidity: 57
 			},
 			{
-				temperatue: 28,
+				temperature: 28,
 				time: '16:00',
 				humidity: 60
 			},
 			{
-				temperatue: 24,
+				temperature: 24,
 				time: '19:00',
 				humidity: 40
 			}
@@ -34,22 +34,22 @@
 			<div class="flex flex-col pl-4">
 				<div class="flex flex-row justify-between">
 					<span class="text-3xl font-bold">{data.temperature}°C</span>
-					<div class="flex items-center text-sky-600 dark:text-sky-300 text-lg">
+					<div class="flex items-center text-sky-700 dark:text-sky-300 text-lg">
 						{data.humidity}<Humidity class="w-8 h-8" />
 					</div>
 				</div>
-				<span class="font-semibold mt-1 text-primary-500">{data.zip}, {data.city}</span>
+				<span class="font-semibold mt-1 text-primary-600">{data.zip}, {data.city}</span>
 			</div>
 			<DaySunny class="text-yellow-400 h-16 w-16" />
 		</div>
 
 		<div class="flex justify-around mt-12">
 			{#each data.forecast as forecast, i}
-				<div class="flex flex-col items-center">
-					<span class="font-semibold text-lg">{forecast.temperatue}°C</span>
-					<DayCloudy class="h-16 w-16 text-gray-500 dark:text-slate-200 my-2" />
+				<div class="flex flex-col items-center text-primary-600">
 					<span class="font-semibold text-lg">{forecast.time}</span>
-					<div class="flex items-center text-sky-600 dark:text-sky-300 pl-3 text-lg">
+					<DayCloudy class="h-16 w-16 text-gray-500 dark:text-slate-200 my-2" />
+					<span class="font-semibold text-lg">{forecast.temperature}°C</span>
+					<div class="flex items-center text-sky-700 dark:text-sky-300 pl-3 text-lg">
 						{forecast.humidity}
 						<Humidity class="w-8 h-8" />
 					</div>

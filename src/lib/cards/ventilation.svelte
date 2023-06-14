@@ -59,7 +59,7 @@
 						<p class="text-xl">Nachtschaltung</p>
 					</div>
 					<div class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200">
-						{data.nightTimeStart} - {data.nightTimeEnd}
+						{data.nightTimeStart} - {data.nightTimeEnd} Uhr
 					</div>
 				</div>
             </ListgroupItem>
