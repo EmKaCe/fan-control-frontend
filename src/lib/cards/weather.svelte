@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Card } from 'flowbite-svelte';
-	import { DayCloudy, DaySunny, Humidity, Raindrop } from 'svelte-weather';
+	import { DayCloudy, DaySunny, Humidity, Thermometer } from 'svelte-weather';
 
 	export let data = {
 		temperature: 30,
@@ -48,7 +48,10 @@
 				<div class="flex flex-col items-center text-primary-600">
 					<span class="font-semibold text-lg">{forecast.time}</span>
 					<DayCloudy class="h-16 w-16 text-gray-500 dark:text-slate-200 my-2" />
-					<span class="font-semibold text-lg">{forecast.temperature}°C</span>
+					<div class="flex items-center font-semibold text-lg">
+						{forecast.temperature}°C
+						<Thermometer class="w-8 h-8" />
+					</div>
 					<div class="flex items-center text-sky-700 dark:text-sky-300 pl-3 text-lg">
 						{forecast.humidity}
 						<Humidity class="w-8 h-8" />

@@ -24,7 +24,8 @@
 	<header class="drop-shadow">
 		<Navbar class={navbarClass}>
 			<NavBrand>
-				<span class="self-center whitespace-nowrap text-xl font-semibold text-primary-700 dark:text-white"
+				<span
+					class="self-center whitespace-nowrap text-xl font-semibold text-primary-700 dark:text-white"
 					>IoT Dashboard</span
 				>
 			</NavBrand>
