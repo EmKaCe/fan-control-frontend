@@ -2,7 +2,7 @@
 	import CustomListPlaceholder from '$lib/CustomListPlaceholder.svelte';
 	import { Card, Listgroup } from 'flowbite-svelte';
 	export let title: string;
-    export let list : {name: string; value?: string;}[];
+	export let list: { name: string; value?: string }[];
 </script>
 
 <section class="w-full h-full flex justify-center">
@@ -18,7 +18,9 @@
 					<div class="flex-1 min-w-0">
 						<p class="text-xl">{item.name}</p>
 					</div>
-					<div class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200">
+					<div
+						class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200"
+					>
 						{#if item.value}
 							{item.value}
 						{:else}
