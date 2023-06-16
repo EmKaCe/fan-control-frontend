@@ -1,7 +1,9 @@
 <script>
+	import { ApiClient } from '$lib/api/client';
 	import Sensor from '$lib/cards/sensor.svelte';
 	import Ventilation from '$lib/cards/ventilation.svelte';
 	import Weather from '$lib/cards/weather.svelte';
+	import { onMount } from 'svelte';
 	let innensensorList = [
 		{
 			name: 'Temperatur',
@@ -34,6 +36,14 @@
 			value: '69%'
 		}
 	];
+
+	// TODO: Remove these lines, once testing is complete
+	const client = new ApiClient("127.0.0.1:3001");
+
+	onMount(async () => {
+		const res = await client.getConfig();
+		console.log(res);
+	});
 </script>
 
 <svelte:head>
