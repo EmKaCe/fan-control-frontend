@@ -7,36 +7,41 @@
 	let innensensorList = [
 		{
 			name: 'Temperatur',
-			value: '32°C'
+			value: 32.351,
+			unit: '°C'
 		},
 		{
 			name: 'Rel. Luftfeuchtigkeit',
-			value: '50%'
+			value: 50.724,
+			unit: '%'
 		},
 		{
 			name: 'Abs. Luftfeuchtigkeit',
-			value: '16.9 g/m³'
+			value: 16.924,
+			unit: 'g/m³'
 		}
 	];
 	let aussensensorList = [
 		{
 			name: 'Temperatur',
-			value: '34°C'
+			value: 32.124,
+			unit: '°C'
 		},
 		{
 			name: 'Rel. Luftfeuchtigkeit',
-			value: '55%'
+			value: 55.351,
+			unit: '%'
 		},
 		{
 			name: 'Abs. Luftfeuchtigkeit',
-			value: '20.7 g/m³'
+			value: 20.7342,
+			unit: 'g/m³'
 		},
 		{
 			name: 'Akku',
-			value: '69%'
+			level: 69.2423
 		}
 	];
-
 	// TODO: Remove these lines, once testing is complete
 	const client = new ApiClient("127.0.0.1:3001");
 

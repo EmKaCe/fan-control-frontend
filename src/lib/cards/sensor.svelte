@@ -1,8 +1,9 @@
 <script lang="ts">
 	import CustomListPlaceholder from '$lib/CustomListPlaceholder.svelte';
+	import BatteryIndicator from '$lib/batteryIndicator.svelte';
 	import { Card, Listgroup } from 'flowbite-svelte';
 	export let title: string;
-	export let list: { name: string; value?: string }[];
+	export let list: { name: string; value?: number, unit?: string, level?: number }[];
 </script>
 
 <section class="w-full h-full flex justify-center">
@@ -18,15 +19,19 @@
 					<div class="flex-1 min-w-0">
 						<p class="text-xl">{item.name}</p>
 					</div>
-					<div
-						class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200"
-					>
-						{#if item.value}
-							{item.value}
-						{:else}
-							-
-						{/if}
-					</div>
+					{#if item.level}
+						<BatteryIndicator level={item.level} />
+					{:else}
+						<div
+							class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200"
+						>
+							{#if item.value}
+								{item.value.toFixed(2)} {item.unit}
+							{:else}
+								-
+							{/if}
+						</div>
+					{/if}
 				</div>
 			</Listgroup>
 		{:else}

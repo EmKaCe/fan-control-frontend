@@ -3,7 +3,7 @@
 
 	let data = {
 		active: true,
-		speed: 50,
+		speed: 50.346,
 		window: false,
 		nightTimeStart: '22:00',
 		nightTimeEnd: '06:00'
@@ -37,7 +37,7 @@
 					<div
 						class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200"
 					>
-						{data.speed}%
+						{data.speed.toFixed(2)} %
 					</div>
 				</div>
 			</ListgroupItem>

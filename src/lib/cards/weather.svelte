@@ -34,7 +34,7 @@
 			<div class="flex flex-col pl-4">
 				<div class="flex flex-row justify-between">
 					<span class="text-3xl font-bold">{data.temperature}°C</span>
-					<div class="flex items-center text-sky-700 dark:text-sky-300 text-lg">
+					<div class="flex items-center text-sky-700 dark:text-sky-300 text-lg pl-4">
 						{data.humidity}<Humidity class="w-8 h-8" />
 					</div>
 				</div>
@@ -49,11 +49,11 @@
 					<span class="font-semibold text-lg">{forecast.time}</span>
 					<DayCloudy class="h-16 w-16 text-gray-500 dark:text-slate-200 my-2" />
 					<div class="flex items-center font-semibold text-lg">
-						{forecast.temperature}°C
+						{forecast.temperature.toFixed(0)}°C
 						<Thermometer class="w-8 h-8" />
 					</div>
 					<div class="flex items-center text-sky-700 dark:text-sky-300 pl-3 text-lg">
-						{forecast.humidity}
+						{forecast.humidity.toFixed(0)}
 						<Humidity class="w-8 h-8" />
 					</div>
 				</div>
