@@ -1,4 +1,4 @@
-export interface IndoorData {
+export interface IndoorResponse {
     "data": [
         {
             "date": string,
