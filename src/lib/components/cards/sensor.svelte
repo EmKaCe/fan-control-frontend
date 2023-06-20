@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CustomListPlaceholder from '$lib/CustomListPlaceholder.svelte';
-	import BatteryIndicator from '$lib/batteryIndicator.svelte';
+	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
+	import BatteryIndicator from '$lib/components/batteryIndicator.svelte';
 	import { Card, Listgroup } from 'flowbite-svelte';
 	export let title: string;
 	export let list: { name: string; value?: number, unit?: string, level?: number }[];

@@ -8,7 +8,7 @@
     if (level >= 80) {
         batteryStatus = "bg-green-500";
     } else if (level >= 20) {
-        batteryStatus = "dark:bg-yellow-300 bg-amber-400";
+        batteryStatus = "dark:bg-yellow-300 !bg-amber-400";
     } else {
         batteryStatus = "bg-red-500";
     }
