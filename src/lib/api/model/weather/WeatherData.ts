@@ -22,7 +22,7 @@ export interface WeatherData {
      * @type {Array<Weather>}
      * @memberof WeatherData
      */
-    weather?: Array<Weather>;
+    weather: Array<Weather>;
     /**
      * 
      * @type {string}

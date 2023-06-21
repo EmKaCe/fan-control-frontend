@@ -9,23 +9,23 @@ export interface Weather {
      * @type {number}
      * @memberof Weather
      */
-    id?: number;
+    id: number;
     /**
      * 
      * @type {string}
      * @memberof Weather
      */
-    main?: string;
+    main: string;
     /**
      * 
      * @type {string}
      * @memberof Weather
      */
-    description?: string;
+    description: string;
     /**
      * 
      * @type {string}
      * @memberof Weather
      */
-    icon?: string;
+    icon: string;
 }
