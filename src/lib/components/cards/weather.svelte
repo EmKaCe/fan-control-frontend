@@ -2,10 +2,11 @@
 	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
 	import { ApiClient } from '$lib/api/client';
 	import type { WeatherResponse } from '$lib/api/model/weather/WeatherResponse';
-	import { Card } from 'flowbite-svelte';
-	import { DayCloudy, DaySunny, Humidity, Thermometer } from 'svelte-weather';
-	import type { SettingsData } from '$lib/stores/model/SettingsData';
 	import settings from '$lib/stores/settings';
+	import type { SettingsData } from '$lib/stores/model/SettingsData';
+	import { Card } from 'flowbite-svelte';
+	import { Humidity, Thermometer } from 'svelte-weather';
+	import WeatherIcon from '../weatherIcon.svelte';
 
 	let currentSettings: SettingsData = JSON.parse($settings);
 
@@ -33,7 +34,7 @@
 					</div>
 					<span class="font-semibold mt-1 text-primary-600">{zip}, {data.current.name}</span>
 				</div>
-				<DaySunny class="text-yellow-400 h-16 w-16" />
+				<WeatherIcon icon={data.current.weather[0].icon} size={16} />
 			</div>
 			<div class="flex justify-around mt-12">
 				{#each data.forecast.list as f, i}
@@ -44,7 +45,7 @@
 								.getMinutes()
 								.toLocaleString('de-DE', { minimumIntegerDigits: 2 })}
 						</span>
-						<DayCloudy class="h-16 w-16 text-gray-500 dark:text-slate-200 my-2" />
+						<WeatherIcon icon={f.weather[0].icon} size={16} spacing="my-2" />
 						<div class="flex items-center font-semibold text-lg">
 							{f.main.temp?.toFixed(0)}°C
 							<Thermometer class="w-8 h-8" />
@@ -59,6 +60,10 @@
 					{/if}
 				{/each}
 			</div>
+		</Card>
+	{:catch}
+		<Card class="text-red-600 dark:text-red-500 grow" size="md">
+			<h5 class="mb-2 text-2xl font-bold tracking-tight pl-4">An error occured...</h5>
 		</Card>
 	{/await}
 </section>

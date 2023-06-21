@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ApiClient } from '$lib/api/client';
 	import Sensor from '$lib/components/cards/sensor.svelte';
 	import Ventilation from '$lib/components/cards/ventilation.svelte';
 	import Weather from '$lib/components/cards/weather.svelte';
@@ -41,6 +42,8 @@
 			level: 69.2423
 		}
 	];
+
+	ApiClient.getClient("127.0.0.1:3002");
 </script>
 
 <svelte:head>

@@ -27,7 +27,7 @@ export interface WeatherItem {
      * @type {Array<Weather>}
      * @memberof WeatherItem
      */
-    weather?: Array<Weather>;
+    weather: Array<Weather>;
     /**
      * 
      * @type {Clouds}
