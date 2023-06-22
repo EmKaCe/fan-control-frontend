@@ -1,10 +1,16 @@
 export interface SettingsData {
     url: string,
-    zip: number,
-    pollingRate: number,
-    nightMode: boolean,
-    nightModeStart: string,
-    nightModeEnd: string,
-    nightModeSpeed: number,
+    pollingRateSensorOutside: number,
+    pollingRateSensorInside: number,
+    pollingRateWeb: number,
     ignoreWindow: boolean,
+    darkMode: boolean,
+    zipCode: string,
+    hysteresisOffset: number,
+    nightModeConfig: {
+        enabled: boolean,
+        startHour: number,
+        endHour: number,
+        maxDutyCycle: number
+    }
 }

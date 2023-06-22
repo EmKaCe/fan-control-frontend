@@ -3,6 +3,7 @@
 	import TooltipLabel from './tooltipLabel.svelte';
 	import type { SettingsData } from '$lib/stores/model/SettingsData';
 	import settings from '$lib/stores/settings';
+	import { ApiClient } from '$lib/api/client';
 	export let open: boolean;
 
 	let currentSettings: SettingsData = JSON.parse($settings);
@@ -12,6 +13,8 @@
 	};
 
 	const submitSettings = () => {
+		// TODO: Adjust FrontEndConfig to new SettingsData
+		// ApiClient.getClient().setConfig(currentSettings);
 		settings.set(JSON.stringify(currentSettings));
 	};
 </script>
@@ -43,51 +46,124 @@
 					title="Postleitzahl"
 					tooltip="Wird verwendet um Wetterdaten zu erhalten"
 				/>
-				<Input id="zip-code" placeholder="53757" type="number" bind:value={currentSettings.zip} />
+				<Input
+					id="zip-code"
+					placeholder="53757"
+					type="number"
+					bind:value={currentSettings.zipCode}
+				/>
 			</div>
 			<div class="w-full">
 				<TooltipLabel
-					forId="polling-rate"
-					title="Polling rate (ms)"
+					forId="polling-rate-web"
+					title="Polling rate Web (ms)"
 					tooltip="Gibt an wie häufig das Dashboard aktualisiert wird (geringere Abstände erzeugen eine höhere Belastung des Servers)"
 				/>
 				<Input
 					id="polling-rate"
-					placeholder="1000"
+					placeholder="5000"
 					type="number"
-					bind:value={currentSettings.pollingRate}
+					bind:value={currentSettings.pollingRateWeb}
 				/>
 			</div>
 		</div>
-		<div class={currentSettings.nightMode ? 'mb-6 flex flex-row gap-6' : 'mb-6'}>
-			<Toggle class="h-full place-self-end mb-3" bind:checked={currentSettings.nightMode}
-				>Nachtschaltung</Toggle
+		<div class="mb-6 flex flex-row gap-6 justify-evenly">
+			<div class="w-full">
+				<TooltipLabel
+					forId="polling-rate-indoor"
+					title="Polling rate Innensensor (ms)"
+					tooltip="Gibt an wie häufig der Innensensor Updates sendet (geringere Abstände erzeugen eine höhere Belastung des Servers)"
+				/>
+				<Input
+					id="polling-rate-indoor"
+					placeholder="5000"
+					type="number"
+					bind:value={currentSettings.pollingRateSensorInside}
+				/>
+			</div>
+			<div class="w-full">
+				<TooltipLabel
+					forId="polling-rate-outdoor"
+					title="Polling rate Außensensor (ms)"
+					tooltip="Gibt an wie häufig der Außensensor Updates sendet (geringere Abstände erhöhen den Stromverbrauch)"
+				/>
+				<Input
+					id="polling-rate-outdoor"
+					placeholder="5000"
+					type="number"
+					bind:value={currentSettings.pollingRateSensorOutside}
+				/>
+			</div>
+		</div>
+		<div class={currentSettings.nightModeConfig.enabled ? 'mb-6 flex flex-row gap-6' : 'mb-6'}>
+			<Toggle
+				class="h-full place-self-end mb-3"
+				bind:checked={currentSettings.nightModeConfig.enabled}>Nachtschaltung</Toggle
 			>
-			{#if currentSettings.nightMode}
+			{#if currentSettings.nightModeConfig.enabled}
 				<div class="w-full">
-					<Label for="night-mode-start" class="block mb-2">Start</Label>
-					<Input id="night-mode-start" bind:value={currentSettings.nightModeStart} type="time" />
+					<Label for="night-mode-start" class="block mb-2">Start (Stunde)</Label>
+					<Input
+						id="night-mode-start"
+						bind:value={currentSettings.nightModeConfig.startHour}
+						type="number"
+						placeholder="0 - 23"
+						min="0"
+						max="23"
+					/>
 				</div>
 				<div class="w-full">
-					<Label for="night-mode-end" class="block mb-2">Ende</Label>
-					<Input id="night-mode-end" bind:value={currentSettings.nightModeEnd} type="time" />
+					<Label for="night-mode-end" class="block mb-2">Ende (Stunde)</Label>
+					<Input
+						id="night-mode-end"
+						bind:value={currentSettings.nightModeConfig.endHour}
+						type="number"
+						placeholder="0 - 23"
+						min="0"
+						max="23"
+					/>
 				</div>
 				<div class="w-full">
 					<Label for="night-mode-speed" class="block mb-2">Lüftergeschwindigkeit</Label>
 					<ButtonGroup>
 						<Input
 							id="night-mode-speed"
-							placeholder="100"
+							placeholder="0 - 100"
 							type="number"
-							bind:value={currentSettings.nightModeSpeed}
+							min="0"
+							max="100"
+							bind:value={currentSettings.nightModeConfig.maxDutyCycle}
 						/>
 						<InputAddon>%</InputAddon>
 					</ButtonGroup>
 				</div>
 			{/if}
 		</div>
-		<div class="mb-6">
-			<Toggle id="ignore-open-window" bind:checked={currentSettings.ignoreWindow}>Offenes Fenster ignorieren?</Toggle>
+		<div class="mb-6 flex flex-row gap-6 justify-evenly">
+			<Toggle
+				id="ignore-open-window"
+				class="h-full place-self-end w-full pb-2"
+				bind:checked={currentSettings.ignoreWindow}>Offenes Fenster ignorieren?</Toggle
+			>
+			<div class="w-full">
+				<TooltipLabel
+					forId="hysteresis-offset"
+					title="Hysteresefehler"
+					tooltip="Gibt an wie stark die Luftfeuchtigkeit abweichen darf, bevor die Zweipunktregelung reagiert"
+				/>
+				<ButtonGroup class="w-full">
+					<Input
+						id="hysteresis-offset"
+						placeholder="0,5 - 5"
+						type="number"
+						min="0.5"
+						max="5"
+						step="0.1"
+						bind:value={currentSettings.hysteresisOffset}
+					/>
+					<InputAddon>g/m³</InputAddon>
+				</ButtonGroup>
+			</div>
 		</div>
 	</div>
 	<svelte:fragment slot="footer">

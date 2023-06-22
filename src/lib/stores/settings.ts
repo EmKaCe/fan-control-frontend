@@ -1,8 +1,25 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
+import type { SettingsData } from './model/SettingsData';
 
-const defaultValue = '{"url": "https://example.com","zip": 12345,"pollingRate": 5000,"nightMode": true,"nightModeStart": "22:00","nightModeEnd": "06:00","nightModeSpeed": 50,"ignoreWindow": false}';
-const initialValue = browser ? window.localStorage.getItem('settings') ?? defaultValue : defaultValue;
+const defaultValue: SettingsData = {
+    url: 'http://example.com',
+    pollingRateSensorOutside: 5000,
+    pollingRateSensorInside: 5000,
+    pollingRateWeb: 5000,
+    ignoreWindow: false,
+    darkMode: false,
+    zipCode: '12345',
+    hysteresisOffset: 0.5,
+    nightModeConfig: {
+        enabled: true,
+        startHour: 22,
+        endHour: 6,
+        maxDutyCycle: 100,
+    },
+};
+
+const initialValue = browser ? window.localStorage.getItem('settings') ?? JSON.stringify(defaultValue) : JSON.stringify(defaultValue);
 
 const settings = writable<string>(initialValue);
 
