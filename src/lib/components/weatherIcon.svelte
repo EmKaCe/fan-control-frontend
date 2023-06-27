@@ -23,7 +23,7 @@
 	export let size: number;
     export let spacing: string = "my-auto";
 
-	let iconClass = `h-${size} w-${size} ${spacing}`;
+	let iconClass: String = `h-${size} w-${size} ${spacing}`;
 </script>
 
 {#if icon == '01d'}
@@ -59,5 +59,5 @@
 {:else if icon == '50n'}
 	<NightFog class="text-gray-600 dark:text-slate-100 {iconClass}" />
 {:else}
-	<Alien class="text-violet-600 dark:text-violet-400 {iconClass}" />
+	<Alien class="text-violet-600 dark:text-violet-400 h-16 w-16 my-auto" />
 {/if}
