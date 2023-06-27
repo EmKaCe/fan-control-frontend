@@ -5,7 +5,7 @@
 
     let batteryStatus: string;
 
-    if (level >= 80) {
+    if (level >= 70) {
         batteryStatus = "bg-green-500";
     } else if (level >= 20) {
         batteryStatus = "dark:bg-yellow-300 !bg-amber-400";
