@@ -12,8 +12,8 @@ export class ApiClient {
 
     private constructor(url: string) {
         this.client = axios.create({
-            baseURL: `http://${url}`, // TODO: Change this to only support HTTPs
-            timeout: 5000
+            baseURL: `https://${url.replace("http://", "").replace("https://", "")}`,
+            timeout: 5000,
         });
     }
 
@@ -33,7 +33,7 @@ export class ApiClient {
     }
 
     public async setConfig(data: FrontEndConfig): Promise<FrontEndConfig> {
-        return (await this.client.post("/frontend/config")).data;
+        return (await (await this.client.post("/frontend/config", data)).data);
     }
 
     public async getIndoor(): Promise<IndoorResponse> {
