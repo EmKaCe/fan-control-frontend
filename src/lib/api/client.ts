@@ -4,6 +4,7 @@ import type { FrontEndConfig } from "./model/FrontendConfig";
 import type { IndoorResponse } from "./model/IndoorResponse";
 import type { OutdoorResponse } from "./model/OutdoorResponse";
 import type { WeatherResponse } from "./model/weather/WeatherResponse";
+import type { StateResponse } from "./model/StateResponse";
 
 export class ApiClient {
     private static instance: ApiClient;
@@ -23,6 +24,10 @@ export class ApiClient {
         return ApiClient.instance;
     }
 
+    public static setUrl(url: string): void {
+        ApiClient.instance = new ApiClient(url);
+    }
+
     public async getConfig(): Promise<FrontEndConfig> {
         return (await this.client.get("/frontend/config")).data;
     }
@@ -37,6 +42,10 @@ export class ApiClient {
 
     public async getOutdoor(): Promise<OutdoorResponse> {
         return (await this.client.get("/outdoor")).data;
+    }
+
+    public async getState(): Promise<StateResponse> {
+        return (await this.client.get("/state")).data;
     }
 
     public async getWeather(): Promise<WeatherResponse> {
