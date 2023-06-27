@@ -52,7 +52,7 @@ export interface WeatherData {
      * @type {Rain}
      * @memberof WeatherData
      */
-    rain?: Rain;
+    rain?: Rain | null;
     /**
      * 
      * @type {Clouds}
@@ -64,7 +64,7 @@ export interface WeatherData {
      * @type {number}
      * @memberof WeatherData
      */
-    dt?: number;
+    dt: number;
     /**
      * 
      * @type {WeatherSys}

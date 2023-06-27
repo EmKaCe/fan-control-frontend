@@ -57,7 +57,7 @@ export interface WeatherItem {
      * @type {Rain}
      * @memberof WeatherItem
      */
-    rain?: Rain;
+    rain?: Rain | null;
     /**
      * 
      * @type {ForecastSys}
