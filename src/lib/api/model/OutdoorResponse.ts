@@ -1,11 +1,7 @@
 export interface OutdoorResponse {
-    "data": [
-        {
-            "date": string,
-            "temperature": number,
-            "relativeHumidity": number,
-            "absoluteHumidity": number,
-            "battery": number,
-        }
-    ]
+    "date": string,
+    "temperature": number,
+    "relativeHumidity": number,
+    "absoluteHumidity": number,
+    "battery": number,
 }
