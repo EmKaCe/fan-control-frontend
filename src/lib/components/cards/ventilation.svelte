@@ -88,11 +88,17 @@
 						<div
 							class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200"
 						>
-							{data.nightModeConfig.startHour.toString().padStart(2, '0')}:00 - {data.nightModeConfig.endHour.toString().padStart(2, '0')}:00 Uhr
+							{data.nightModeConfig.startHour.toString().padStart(2, '0')}:00 - {data.nightModeConfig.endHour
+								.toString()
+								.padStart(2, '0')}:00 Uhr
 						</div>
 					</div>
 				</ListgroupItem>
 			</Listgroup>
+		</Card>
+	{:catch}
+		<Card class="text-red-600 dark:text-red-500 grow" size="md">
+			<h5 class="mb-2 text-2xl font-bold tracking-tight pl-4">Ein fehler ist aufgetreten...</h5>
 		</Card>
 	{/await}
 </section>
