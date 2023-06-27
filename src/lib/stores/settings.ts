@@ -4,18 +4,19 @@ import type { SettingsData } from './model/SettingsData';
 
 const defaultValue: SettingsData = {
     url: 'http://example.com',
-    pollingRateSensorOutside: 5000,
-    pollingRateSensorInside: 5000,
-    pollingRateWeb: 5000,
-    ignoreWindow: false,
-    darkMode: false,
-    zipCode: '12345',
-    hysteresisOffset: 0.5,
-    nightModeConfig: {
-        enabled: true,
-        startHour: 22,
-        endHour: 6,
-        maxDutyCycle: 100,
+    config: {
+        pollingRateSensorOutside: 5000,
+        pollingRateSensorInside: 5000,
+        pollingRateWeb: 5000,
+        ignoreWindow: false,
+        darkMode: false,
+        zipCode: '12345',
+        hysteresisOffset: 0.5,
+        nightModeConfig: {
+            startHour: 22,
+            endHour: 6,
+            maxDutyCycle: 100,
+        },
     },
 };
 

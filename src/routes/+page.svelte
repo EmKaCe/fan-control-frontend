@@ -1,47 +1,9 @@
 <script lang="ts">
 	import { ApiClient } from '$lib/api/client';
-	import Sensor from '$lib/components/cards/sensor.svelte';
+	import Indoor from '$lib/components/cards/indoor.svelte';
+	import Outdoor from '$lib/components/cards/outdoor.svelte';
 	import Ventilation from '$lib/components/cards/ventilation.svelte';
 	import Weather from '$lib/components/cards/weather.svelte';
-
-	let innensensorList = [
-		{
-			name: 'Temperatur',
-			value: 32.351,
-			unit: '°C'
-		},
-		{
-			name: 'Rel. Luftfeuchtigkeit',
-			value: 50.724,
-			unit: '%'
-		},
-		{
-			name: 'Abs. Luftfeuchtigkeit',
-			value: 16.924,
-			unit: 'g/m³'
-		}
-	];
-	let aussensensorList = [
-		{
-			name: 'Temperatur',
-			value: 32.124,
-			unit: '°C'
-		},
-		{
-			name: 'Rel. Luftfeuchtigkeit',
-			value: 55.351,
-			unit: '%'
-		},
-		{
-			name: 'Abs. Luftfeuchtigkeit',
-			value: 20.7342,
-			unit: 'g/m³'
-		},
-		{
-			name: 'Akku',
-			level: 69.2423
-		}
-	];
 
 	ApiClient.getClient("127.0.0.1:3002");
 </script>
@@ -61,7 +23,7 @@
 	</script>
 </svelte:head>
 
-<Sensor title="Innensensor" list={innensensorList} />
-<Sensor title="Außensensor" list={aussensensorList} />
-<Weather />
-<Ventilation />
+<Indoor debug={true} />
+<Outdoor debug={true} />
+<Weather debug={true} />
+<Ventilation debug={true} />
