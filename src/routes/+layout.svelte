@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import '../app.postcss';
 	import {
 		Button,
@@ -11,7 +12,7 @@
 		Navbar,
 		Tooltip
 	} from 'flowbite-svelte';
-	import { CircleStack, CodeBracket, Cog, Moon, Sun } from 'svelte-heros-v2';
+	import { ChartBarSquare, CircleStack, CodeBracket, Cog, Home, Moon, Sun } from 'svelte-heros-v2';
 	import SettingsModal from '$lib/components/settings/settingsModal.svelte';
 	import SettingsToast from '$lib/components/settings/settingsToast.svelte';
 	const navbarClass =
@@ -26,7 +27,7 @@
 </script>
 
 <div class="app flex flex-col h-screen">
-	<SettingsToast bind:showToast={showToast} />
+	<SettingsToast bind:showToast />
 	<header class="drop-shadow">
 		<Navbar class={navbarClass}>
 			<NavBrand>
@@ -39,10 +40,10 @@
 				<ButtonGroup>
 					<DarkMode btnClass={navButtonClass}>
 						<span class="flex items-center" slot="lightIcon">
-							<Sun /><span class="hidden md:block">Helles Design</span>
+							<Sun /><span class="pl1 hidden md:block">Helles Design</span>
 						</span>
 						<span class="flex items-center" slot="darkIcon">
-							<Moon /><span class="hidden md:block">Dunkeles Design</span>
+							<Moon /><span class="pl-1 hidden md:block">Dunkeles Design</span>
 						</span>
 					</DarkMode>
 					<Button
@@ -51,8 +52,19 @@
 						}}
 					>
 						<Cog />
-						<span class="hidden md:block">Einstellungen</span>
+						<span class="pl-1 hidden md:block">Einstellungen</span>
 					</Button>
+					{#if $page.route.id === '/stats'}
+						<Button href="/">
+							<Home />
+							<span class="pl-1 hidden md:block">Start</span>
+						</Button>
+					{:else}
+						<Button href="/stats">
+							<ChartBarSquare />
+							<span class="pl-1 hidden md:block">Statistiken</span>
+						</Button>
+					{/if}
 				</ButtonGroup>
 			</div>
 		</Navbar>
