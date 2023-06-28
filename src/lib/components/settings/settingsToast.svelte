@@ -6,7 +6,7 @@
     let toast: 'success' | 'error' | '' = '';
 	let toastMessage: String = '';
 
-	export let showToast: (display: 'success' | 'error' | '', message: String) => void = (display, message) => {
+	export const showToast: (display: 'success' | 'error' | '', message: String) => void = (display, message) => {
         toast = display;
         toastMessage = message;
         setTimeout(() => {
