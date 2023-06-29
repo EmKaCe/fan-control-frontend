@@ -1,18 +1,28 @@
 <script lang="ts">
 	import { ApiClient } from '$lib/api/client';
+	import type { IndoorResponse } from '$lib/api/model/IndoorResponse';
+	import type { OutdoorResponse } from '$lib/api/model/OutdoorResponse';
+	import IndoorStatsDebug from '$lib/debug/IndoorStatsDebug';
+	import OutdoorStatsDebug from '$lib/debug/OutdoorStatsDebug';
 	import * as Plot from '@observablehq/plot';
 	import { Alert, Card, Indicator, Spinner } from 'flowbite-svelte';
 	import { ExclamationCircle } from 'svelte-heros-v2';
 
+	const debug = true;
+
 	let hidden = true;
 
 	const getData = async (limit: number) => {
-		const indoorData = await ApiClient.getClient().getHistoricIndoor(limit);
-		const outdoorData = await ApiClient.getClient().getHistoricOutdoor(
-			limit
-		);
-		console.log(indoorData);
-		console.log(outdoorData);
+		let indoorData: IndoorResponse[];
+		let outdoorData: OutdoorResponse[];
+		if (debug) {
+			await new Promise((resolve) => setTimeout(resolve, 10000));
+			indoorData = IndoorStatsDebug;
+			outdoorData = OutdoorStatsDebug;
+		} else {
+			indoorData = await ApiClient.getClient().getHistoricIndoor(limit);
+			outdoorData = await ApiClient.getClient().getHistoricOutdoor(limit);
+		}
 		const plotClasses = ['!bg-transparent', 'dark:text-slate-200', 'text-lg'];
 
 		const temperaturePlot = Plot.plot({
