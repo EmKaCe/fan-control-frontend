@@ -12,7 +12,7 @@ export class ApiClient {
 
     private constructor(url: string) {
         this.client = axios.create({
-            baseURL: `https://${url.replace("http://", "").replace("https://", "")}`,
+            baseURL: `http://${url}`,//.replace("http://", "").replace("https://", "")}`,
             timeout: 5000,
         });
     }
@@ -34,6 +34,14 @@ export class ApiClient {
 
     public async setConfig(data: FrontEndConfig): Promise<FrontEndConfig> {
         return (await (await this.client.post("/frontend/config", data)).data);
+    }
+
+    public async getHistoricIndoor(limit: number): Promise<IndoorResponse[]> {
+        return (await this.client.get(`/indoor?limit=${limit}`)).data.data;
+    }
+
+    public async getHistoricOutdoor(limit: number): Promise<OutdoorResponse[]> {
+        return (await this.client.get(`/outdoor?limit=${limit}`)).data.data;
     }
 
     public async getIndoor(): Promise<IndoorResponse> {

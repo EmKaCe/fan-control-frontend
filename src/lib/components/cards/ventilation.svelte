@@ -3,21 +3,12 @@
 	import { Card, Indicator, Listgroup, ListgroupItem } from 'flowbite-svelte';
 	import type { StateResponse } from '$lib/api/model/StateResponse';
 	import CustomListPlaceholder from '../CustomListPlaceholder.svelte';
+	import StateDebug from '$lib/debug/StateDebug';
 
 	export let debug = false;
 
 	const getData = async () => {
-		const data: StateResponse = debug
-			? {
-					fanDutyCycle: 67.872,
-					windowOpen: false,
-					nightModeConfig: {
-						maxDutyCycle: 70,
-						startHour: 22,
-						endHour: 6
-					}
-			  }
-			: await ApiClient.getClient().getState();
+		const data: StateResponse = debug ? StateDebug : await ApiClient.getClient().getState();
 		return data;
 	};
 </script>

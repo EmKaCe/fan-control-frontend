@@ -2,20 +2,13 @@
 	import { ApiClient } from '$lib/api/client';
 	import type { IndoorResponse } from '$lib/api/model/IndoorResponse';
 	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
+	import IndoorDebug from '$lib/debug/IndoorDebug';
 	import { Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
 
 	export let debug = false;
 
 	const getData = async () => {
-		const data: IndoorResponse = debug
-			? {
-					date: '2023-06-27T18:17:00Z',
-					temperature: 22.351,
-					relativeHumidity: 40.351,
-					absoluteHumidity: 9.383,
-					windowOpen: false
-			  }
-			: await ApiClient.getClient().getIndoor();
+		const data: IndoorResponse = debug ? IndoorDebug : await ApiClient.getClient().getIndoor();
 		return data;
 	};
 </script>

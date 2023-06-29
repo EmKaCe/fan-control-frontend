@@ -3,20 +3,13 @@
 	import type { OutdoorResponse } from '$lib/api/model/OutdoorResponse';
 	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
 	import BatteryIndicator from '$lib/components/batteryIndicator.svelte';
+	import OutdoorDebug from '$lib/debug/OutdoorDebug';
 	import { Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
 
 	export let debug = false;
 
 	const getData = async () => {
-		const data: OutdoorResponse = debug
-			? {
-					date: '2023-06-27T17:31:00Z',
-					temperature: 20.351,
-					relativeHumidity: 50.351,
-					absoluteHumidity: 10.383,
-					battery: 75.541
-			  }
-			: await ApiClient.getClient().getOutdoor();
+		const data: OutdoorResponse = debug ? OutdoorDebug : await ApiClient.getClient().getOutdoor();
 		return data;
 	};
 </script>
