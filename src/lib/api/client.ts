@@ -36,6 +36,14 @@ export class ApiClient {
         return (await (await this.client.post("/frontend/config", data)).data);
     }
 
+    public async getHistoricIndoor(limit: number): Promise<IndoorResponse[]> {
+        return (await this.client.get(`/indoor?limit=${limit}`)).data.data;
+    }
+
+    public async getHistoricOutdoor(limit: number): Promise<OutdoorResponse[]> {
+        return (await this.client.get(`/outdoor?limit=${limit}`)).data.data;
+    }
+
     public async getIndoor(): Promise<IndoorResponse> {
         return (await this.client.get("/indoor")).data;
     }

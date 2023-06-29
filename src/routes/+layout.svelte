@@ -15,6 +15,7 @@
 	import { ChartBarSquare, CircleStack, CodeBracket, Cog, Home, Moon, Sun } from 'svelte-heros-v2';
 	import SettingsModal from '$lib/components/settings/settingsModal.svelte';
 	import SettingsToast from '$lib/components/settings/settingsToast.svelte';
+	import { ApiClient } from '$lib/api/client';
 	const navbarClass =
 		'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border-gray-100 dark:border-gray-700 px-4 sm:px-10 py-2.5 w-full';
 	const navButtonClass =
@@ -24,17 +25,25 @@
 	let settingsOpen = false;
 
 	let showToast: (display: 'success' | 'error' | '', message: String) => void;
+
+	// TODO: Replace this with API from Settings, open SettingsModal if no API is set
+	ApiClient.getClient("http://127.0.0.1:3002");
 </script>
 
 <div class="app flex flex-col h-screen">
 	<SettingsToast bind:showToast />
 	<header class="drop-shadow">
 		<Navbar class={navbarClass}>
-			<NavBrand>
+			<NavBrand href="/">
 				<span
 					class="self-center whitespace-nowrap text-xl font-semibold text-primary-700 dark:text-white"
-					>IoT Dashboard</span
 				>
+					{#if $page.route.id === '/stats'}
+						Statistiken
+					{:else}
+						IoT Dashboard
+					{/if}
+				</span>
 			</NavBrand>
 			<div class="flex md:order-2">
 				<ButtonGroup>
@@ -70,9 +79,7 @@
 		</Navbar>
 	</header>
 	<main class="flex-grow container mx-auto p-10 md:px-12">
-		<div class="grid md:grid-cols-2 md:grid-rows-2 gap-x-4 gap-y-10 place-items-center h-full">
-			<slot />
-		</div>
+		<slot />
 	</main>
 	<SettingsModal bind:open={settingsOpen} toast={showToast} />
 	<Footer class={footerClass} footerType="socialmedia">
