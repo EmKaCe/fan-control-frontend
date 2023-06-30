@@ -5,19 +5,33 @@
 	import BatteryIndicator from '$lib/components/batteryIndicator.svelte';
 	import OutdoorDebug from '$lib/debug/OutdoorDebug';
 	import { Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
+	import { beforeUpdate } from 'svelte';
 
 	export let debug = false;
+	export let timeout: number;
+	let data: OutdoorResponse;
+	let interval: NodeJS.Timer;
 
 	const getData = async () => {
-		const data: OutdoorResponse = debug ? OutdoorDebug : await ApiClient.getClient().getOutdoor();
-		return data;
+		if (debug) {
+			data = OutdoorDebug;
+		} else {
+			interval = setInterval(async () => {
+				data = await ApiClient.getClient().getOutdoor();
+			}, timeout);
+			data = await ApiClient.getClient().getOutdoor();
+		}
 	};
+
+	beforeUpdate(() => {
+		clearInterval(interval);
+	});
 </script>
 
 <section class="w-full h-full flex justify-center">
 	{#await getData()}
 		<CustomListPlaceholder rows={5} />
-	{:then data}
+	{:then}
 		<Card class="text-primary-700 dark:text-slate-200 grow" size="md">
 			<h5 class="mb-2 text-3xl font-bold tracking-tight pl-4">Außensensor</h5>
 			<Listgroup

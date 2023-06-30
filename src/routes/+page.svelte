@@ -11,8 +11,8 @@
 </svelte:head>
 
 <div class="grid md:grid-cols-2 md:grid-rows-2 gap-x-4 gap-y-10 place-items-center h-full">
-	<Indoor debug={true} />
-	<Outdoor debug={true} />
-	<Weather debug={true} />
-	<Ventilation debug={true} />
+	<Indoor  timeout={1000} />
+	<Outdoor  timeout={1000} />
+	<Weather  />
+	<Ventilation  timeout={1000} />
 </div>

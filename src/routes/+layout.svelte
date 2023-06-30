@@ -27,7 +27,6 @@
 	let showToast: (display: 'success' | 'error' | '', message: String) => void;
 
 	// TODO: Replace this with API from Settings, open SettingsModal if no API is set
-	ApiClient.getClient("127.0.0.1:3002");
 </script>
 
 <div class="app flex flex-col h-screen">

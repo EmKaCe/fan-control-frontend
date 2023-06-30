@@ -4,19 +4,33 @@
 	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
 	import IndoorDebug from '$lib/debug/IndoorDebug';
 	import { Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
+	import { beforeUpdate } from 'svelte';
 
 	export let debug = false;
+	export let timeout: number;
+	let data: IndoorResponse;
+	let interval: NodeJS.Timer;
 
 	const getData = async () => {
-		const data: IndoorResponse = debug ? IndoorDebug : await ApiClient.getClient().getIndoor();
-		return data;
+		if (debug) {
+			data = IndoorDebug;
+		} else {
+			interval = setInterval(async () => {
+				data = await ApiClient.getClient().getIndoor();
+			}, timeout);
+			data = await ApiClient.getClient().getIndoor();
+		}
 	};
+
+	beforeUpdate(() => {
+		clearInterval(interval);
+	});
 </script>
 
 <section class="w-full h-full flex justify-center">
 	{#await getData()}
 		<CustomListPlaceholder rows={5} />
-	{:then data}
+	{:then}
 		<Card class="text-primary-700 dark:text-slate-200 grow" size="md">
 			<h5 class="mb-2 text-3xl font-bold tracking-tight pl-4">Innensensor</h5>
 			<Listgroup
@@ -54,7 +68,7 @@
 				</ListgroupItem>
 			</Listgroup>
 			<div class="text-right text-slate-600 dark:text-slate-200">
-				Aktualisiert am:
+				Daten vom
 				{new Date(data.date).toLocaleString('de-DE', {
 					day: '2-digit',
 					month: '2-digit',

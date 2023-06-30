@@ -12,7 +12,7 @@ export class ApiClient {
 
     private constructor(url: string) {
         this.client = axios.create({
-            baseURL: `http://${url}`,//.replace("http://", "").replace("https://", "")}`,
+            baseURL: `https://${url}`,//.replace("http://", "").replace("https://", "")}`,
             timeout: 5000,
         });
     }

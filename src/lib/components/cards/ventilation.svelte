@@ -4,19 +4,33 @@
 	import type { StateResponse } from '$lib/api/model/StateResponse';
 	import CustomListPlaceholder from '../CustomListPlaceholder.svelte';
 	import StateDebug from '$lib/debug/StateDebug';
+	import { beforeUpdate } from 'svelte';
 
 	export let debug = false;
+	export let timeout: number;
+	let data: StateResponse;
+	let interval: NodeJS.Timer;
 
 	const getData = async () => {
-		const data: StateResponse = debug ? StateDebug : await ApiClient.getClient().getState();
-		return data;
+		if (debug) {
+			data = StateDebug;
+		} else {
+			interval = setInterval(async () => {
+				data = await ApiClient.getClient().getState();
+			}, timeout);
+			data = await ApiClient.getClient().getState();
+		}
 	};
+
+	beforeUpdate(() => {
+		clearInterval(interval);
+	});
 </script>
 
 <section class="w-full h-full flex justify-center">
 	{#await getData()}
 		<CustomListPlaceholder rows={5} />
-	{:then data}
+	{:then}
 		<Card class="text-primary-700 dark:text-slate-200 grow" size="md">
 			<div class="flex justify-between">
 				<div class="flex flex-col pl-4">
