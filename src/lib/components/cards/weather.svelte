@@ -12,7 +12,8 @@
 
 	export let zipCode: number;
 	export let debug = false;
-
+	
+	let data: WeatherResponse;
 	let mounted = false;
 
 	onMount(() => {
@@ -24,15 +25,20 @@
 		while (!mounted) {
 			await new Promise((resolve) => setTimeout(resolve, 100));
 		}
-		const data: WeatherResponse = debug ? WeatherDebug : await ApiClient.getClient().getWeather();
-		return data;
+		data = debug ? WeatherDebug : await ApiClient.getClient().getWeather();
 	};
+
+	$: {
+		if (zipCode) {
+			getData();
+		}
+	}
 </script>
 
 <section class="w-full h-full flex justify-center">
 	{#await getData()}
 		<CustomListPlaceholder rows={5} />
-	{:then data}
+	{:then}
 		<Card class="text-primary-700 dark:text-slate-200 grow" size="md">
 			<!-- Temp, Place & Icon -->
 			<div class="flex justify-between">
