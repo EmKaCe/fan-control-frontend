@@ -12,7 +12,7 @@
 		Navbar,
 		Tooltip
 	} from 'flowbite-svelte';
-	import { ChartBarSquare, CircleStack, CodeBracket, Cog, Home, Moon, Sun } from 'svelte-heros-v2';
+	import { ChartBarSquare, CircleStack, CodeBracket, Cog, CpuChip, Home, Moon, Sun } from 'svelte-heros-v2';
 	import SettingsModal from '$lib/components/settings/settingsModal.svelte';
 	import SettingsToast from '$lib/components/settings/settingsToast.svelte';
 	import settings from '$lib/stores/settings';
@@ -97,6 +97,13 @@
 		<div class="md:flex md:justify-between">
 			<FooterCopyright by="Leo Tietz & Emre Cetin" year={2023} />
 			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+				<FooterIcon
+					href="https://github.com/EmKaCe/fan-control-arduino"
+					class="text-gray-400 hover:text-gray-900"
+				>
+					<CpuChip />
+				</FooterIcon>
+				<Tooltip>Arduino Code auf GitHub</Tooltip>
 				<FooterIcon
 					href="https://github.com/EmKaCe/fan-control-frontend"
 					class="text-gray-400 hover:text-gray-900"
