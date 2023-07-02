@@ -23,7 +23,7 @@
         params={{ x: 200 }}
         simple
     >
-        <CheckCircle slot="icon" color="white" />
+        <CheckCircle slot="icon" class="text-primary-500"/>
         {toastMessage}
     </Toast>
     <Toast

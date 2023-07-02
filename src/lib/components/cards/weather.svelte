@@ -2,19 +2,28 @@
 	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
 	import { ApiClient } from '$lib/api/client';
 	import type { WeatherResponse } from '$lib/api/model/weather/WeatherResponse';
-	import settings from '$lib/stores/settings';
-	import type { SettingsData } from '$lib/stores/model/SettingsData';
 	import { Card } from 'flowbite-svelte';
 	import { Humidity, Thermometer } from 'svelte-weather';
 	import WeatherIcon from '../weatherIcon.svelte';
 	import WeatherDebug from '$lib/debug/WeatherDebug';
 	import Error from './error.svelte';
+	import { onMount } from 'svelte';
+	import DataUpdated from '../DataUpdated.svelte';
 
-	let currentSettings: SettingsData = JSON.parse($settings);
-	let zip = currentSettings.config.zipCode;
+	export let zipCode: number;
 	export let debug = false;
 
+	let mounted = false;
+
+	onMount(() => {
+		mounted = true;
+	});
+
+
 	const getData = async () => {
+		while (!mounted) {
+			await new Promise((resolve) => setTimeout(resolve, 100));
+		}
 		const data: WeatherResponse = debug ? WeatherDebug : await ApiClient.getClient().getWeather();
 		return data;
 	};
@@ -34,7 +43,7 @@
 							{data.current?.main?.humidity}<Humidity class="w-8 h-8" />
 						</div>
 					</div>
-					<span class="font-semibold mt-1 text-primary-600">{zip}, {data.current.name}</span>
+					<span class="font-semibold mt-1 text-primary-600">{zipCode}, {data.current.name}</span>
 				</div>
 				<WeatherIcon icon={data.current.weather[0].icon} size={16} />
 			</div>
@@ -63,15 +72,7 @@
 				{/each}
 			</div>
 			<div class="mt-6 text-right text-slate-600 dark:text-slate-200">
-				Daten vom:
-				{new Date(data.current.dt * 1000).toLocaleString('de-DE', {
-					day: '2-digit',
-					month: '2-digit',
-					year: 'numeric',
-					hour: '2-digit',
-					minute: '2-digit'
-				})}
-			</div>
+				<DataUpdated date={data.current.dt * 1000} />
 		</Card>
 	{:catch e}
 		<Error error={e} />

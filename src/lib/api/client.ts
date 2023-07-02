@@ -5,6 +5,8 @@ import type { IndoorResponse } from "./model/IndoorResponse";
 import type { OutdoorResponse } from "./model/OutdoorResponse";
 import type { WeatherResponse } from "./model/weather/WeatherResponse";
 import type { StateResponse } from "./model/StateResponse";
+import { AxiosError } from "axios";
+import type { SettingsData } from "$lib/stores/model/SettingsData";
 
 export class ApiClient {
     private static instance: ApiClient;
@@ -12,7 +14,7 @@ export class ApiClient {
 
     private constructor(url: string) {
         this.client = axios.create({
-            baseURL: `https://${url}`,//.replace("http://", "").replace("https://", "")}`,
+            baseURL: `https://${url.replace("http://", "").replace("https://", "")}`,
             timeout: 5000,
         });
     }
@@ -25,6 +27,7 @@ export class ApiClient {
     }
 
     public static setUrl(url: string): void {
+        if (!url) throw new AxiosError("No url provided");
         ApiClient.instance = new ApiClient(url);
     }
 
@@ -32,8 +35,31 @@ export class ApiClient {
         return (await this.client.get("/frontend/config")).data;
     }
 
-    public async setConfig(data: FrontEndConfig): Promise<FrontEndConfig> {
-        return (await (await this.client.post("/frontend/config", data)).data);
+    public async setConfig(data: SettingsData): Promise<FrontEndConfig> {
+        if (
+            data.config.pollingRateWeb == undefined ||
+            data.config.ignoreWindow == undefined ||
+            data.config.zipCode == undefined ||
+            data.config.hysteresisOffset == undefined
+        ) throw new AxiosError("Bitte fülle alle Felder aus");
+
+        if (!data.config.nightModeConfig.startHour || !data.config.nightModeConfig.endHour) {
+            data.config.nightModeConfig = {
+                startHour: null,
+                endHour: null,
+                maxDutyCycle: null,
+            };
+        }
+
+        if (!data.config.pollingRateSensorInside) {
+            data.config.pollingRateSensorInside = null;
+        }
+
+        if (!data.config.pollingRateSensorOutside) {
+            data.config.pollingRateSensorOutside = null;
+        }
+
+        return (await (await this.client.post("/frontend/config", data.config)).data);
     }
 
     public async getHistoricIndoor(limit: number): Promise<IndoorResponse[]> {
@@ -45,11 +71,11 @@ export class ApiClient {
     }
 
     public async getIndoor(): Promise<IndoorResponse> {
-        return (await this.client.get("/indoor")).data;
+        return (await this.client.get("/indoor?limit=1")).data.data[0];
     }
 
     public async getOutdoor(): Promise<OutdoorResponse> {
-        return (await this.client.get("/outdoor")).data;
+        return (await this.client.get("/outdoor?limit=1")).data.data[0];
     }
 
     public async getState(): Promise<StateResponse> {

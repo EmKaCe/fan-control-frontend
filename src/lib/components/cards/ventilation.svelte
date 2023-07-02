@@ -4,31 +4,37 @@
 	import type { StateResponse } from '$lib/api/model/StateResponse';
 	import CustomListPlaceholder from '../CustomListPlaceholder.svelte';
 	import StateDebug from '$lib/debug/StateDebug';
-	import { beforeUpdate } from 'svelte';
 	import Error from './error.svelte';
+	import { AxiosError } from 'axios';
+	import { onMount } from 'svelte';
+	import DataUpdated from '../DataUpdated.svelte';
 
 	export let debug = false;
 	export let timeout: number;
 	let data: StateResponse;
-	let updated: Date;
-	let interval: NodeJS.Timer;
+	let updated: string;
+
+	let mounted = false;
+
+	onMount(() => {
+		mounted = true;
+	});
 
 	const getData = async () => {
+		while (!mounted) {
+			await new Promise((resolve) => setTimeout(resolve, 100));
+		}
 		if (debug) {
 			data = StateDebug;
 		} else {
-			interval = setInterval(async () => {
-				data = await ApiClient.getClient().getState();
-				updated = new Date();
+			if (!timeout) throw new AxiosError('Timeout not set');
+			setTimeout(async () => {
+				getData();
 			}, timeout);
 			data = await ApiClient.getClient().getState();
 		}
-		updated = new Date();
+		updated = new Date().toString();
 	};
-
-	beforeUpdate(() => {
-		clearInterval(interval);
-	});
 </script>
 
 <section class="w-full h-full flex justify-center">
@@ -97,23 +103,18 @@
 						<div
 							class="text-xl inline-flex items-center text-base font-semibold text-primary-600 dark:text-slate-200"
 						>
-							{data.nightModeConfig.startHour.toString().padStart(2, '0')}:00 - {data.nightModeConfig.endHour
-								.toString()
-								.padStart(2, '0')}:00 Uhr
+							{#if data.nightModeConfig.startHour && data.nightModeConfig.endHour}
+								{data.nightModeConfig.startHour.toString().padStart(2, '0')}:00 - {data.nightModeConfig.endHour
+									.toString()
+									.padStart(2, '0')}:00 Uhr
+							{:else}
+								<span class="text-lg pl-1">Aus</span>
+							{/if}
 						</div>
 					</div>
 				</ListgroupItem>
 			</Listgroup>
-			<div class="text-right text-slate-600 dark:text-slate-200">
-				Daten vom:
-				{updated.toLocaleString('de-DE', {
-					day: '2-digit',
-					month: '2-digit',
-					year: 'numeric',
-					hour: '2-digit',
-					minute: '2-digit'
-				})} Uhr
-			</div>
+			<DataUpdated bind:date={updated} />
 		</Card>
 	{:catch e}
 		<Error error={e} />

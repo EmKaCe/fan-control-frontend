@@ -4,28 +4,35 @@
 	import CustomListPlaceholder from '$lib/components/CustomListPlaceholder.svelte';
 	import IndoorDebug from '$lib/debug/IndoorDebug';
 	import { Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
-	import { beforeUpdate } from 'svelte';
+	import { onMount } from 'svelte';
 	import Error from './error.svelte';
+	import { AxiosError } from 'axios';
+	import DataUpdated from '../DataUpdated.svelte';
 
 	export let debug = false;
 	export let timeout: number;
 	let data: IndoorResponse;
-	let interval: NodeJS.Timer;
+
+	let mounted = false;
+
+	onMount(() => {
+		mounted = true;
+	});
 
 	const getData = async () => {
+		while (!mounted) {
+			await new Promise((resolve) => setTimeout(resolve, 100));
+		}
 		if (debug) {
 			data = IndoorDebug;
 		} else {
-			interval = setInterval(async () => {
+			if (!timeout) throw new AxiosError('Timeout not set');
+			setTimeout(async () => {
 				data = await ApiClient.getClient().getIndoor();
 			}, timeout);
 			data = await ApiClient.getClient().getIndoor();
 		}
 	};
-
-	beforeUpdate(() => {
-		clearInterval(interval);
-	});
 </script>
 
 <section class="w-full h-full flex justify-center">
@@ -68,16 +75,7 @@
 					</div>
 				</ListgroupItem>
 			</Listgroup>
-			<div class="text-right text-slate-600 dark:text-slate-200">
-				Daten vom
-				{new Date(data.date).toLocaleString('de-DE', {
-					day: '2-digit',
-					month: '2-digit',
-					year: 'numeric',
-					hour: '2-digit',
-					minute: '2-digit'
-				})} Uhr
-			</div>
+			<DataUpdated bind:date={data.date} />
 		</Card>
 	{:catch e}
 		<Error error={e} />
