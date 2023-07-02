@@ -6,7 +6,8 @@
 </script>
 
 <div role="status" class={classNames(divClass, $$props.class)}>
-	<div class="flex justify-between items-center">
+	<h5 class="text-3xl font-bold tracking-tight pl-4 text-slate-800 dark:text-slate-200">Warte auf Daten...</h5>
+	<div class="flex justify-between items-center pt-4">
 		<div>
 			<div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5" />
 			<div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700" />
