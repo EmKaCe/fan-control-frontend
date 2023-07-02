@@ -5,6 +5,7 @@
 	import IndoorDebug from '$lib/debug/IndoorDebug';
 	import { Card, Listgroup, ListgroupItem } from 'flowbite-svelte';
 	import { beforeUpdate } from 'svelte';
+	import Error from './error.svelte';
 
 	export let debug = false;
 	export let timeout: number;
@@ -78,9 +79,7 @@
 				})} Uhr
 			</div>
 		</Card>
-	{:catch}
-		<Card class="text-red-600 dark:text-red-500 grow" size="md">
-			<h5 class="mb-2 text-2xl font-bold tracking-tight pl-4">Ein fehler ist aufgetreten...</h5>
-		</Card>
+	{:catch e}
+		<Error error={e} />
 	{/await}
 </section>

@@ -8,6 +8,7 @@
 	import { Humidity, Thermometer } from 'svelte-weather';
 	import WeatherIcon from '../weatherIcon.svelte';
 	import WeatherDebug from '$lib/debug/WeatherDebug';
+	import Error from './error.svelte';
 
 	let currentSettings: SettingsData = JSON.parse($settings);
 	let zip = currentSettings.config.zipCode;
@@ -72,9 +73,7 @@
 				})}
 			</div>
 		</Card>
-	{:catch}
-		<Card class="text-red-600 dark:text-red-500 grow" size="md">
-			<h5 class="mb-2 text-2xl font-bold tracking-tight pl-4">Ein fehler ist aufgetreten...</h5>
-		</Card>
+	{:catch e}
+		<Error error={e} />
 	{/await}
 </section>

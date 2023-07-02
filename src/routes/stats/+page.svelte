@@ -8,7 +8,7 @@
 	import { Alert, Card, Indicator, Spinner } from 'flowbite-svelte';
 	import { ExclamationCircle } from 'svelte-heros-v2';
 
-	const debug = true;
+	const debug = false;
 
 	let hidden = true;
 
@@ -154,10 +154,10 @@
 			<div class="flex justify-center">
 				<Spinner size="16" />
 			</div>
-		{:catch}
+		{:catch e}
 			<Alert class="bg-red-600 text-red-100 dark:bg-red-200 dark:text-red-800">
 				<ExclamationCircle class="h-5 w-5 mr-2" slot="icon" />
-				<span class="font-medium">Es ist ein Fehler aufgetreten.</span>
+				<span class="font-medium">Es ist ein Fehler aufgetreten: {e.message}</span>
 			</Alert>
 		{/await}
 		<div class:hidden>

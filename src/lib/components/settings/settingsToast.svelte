@@ -27,13 +27,13 @@
         {toastMessage}
     </Toast>
     <Toast
-        class="absolute mx-auto right-5 md:right-10 top-20 bg-red-100 dark:bg-red-700 text-slate-800 dark:text-slate-200 border-red-300 dark:border-red-900"
+        class="absolute mx-auto right-5 md:right-10 top-20 bg-red-300 dark:bg-red-700 text-slate-800 dark:text-slate-200 border-red-300 dark:border-red-900"
         transition={fly}
         open={toast === 'error'}
         params={{ x: 200 }}
         simple
     >
-        <XCircle slot="icon" color="white" />
+        <XCircle slot="icon" class="text-red-600" />
         {toastMessage}
     </Toast>
 </div>
