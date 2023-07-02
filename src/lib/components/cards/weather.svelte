@@ -63,7 +63,7 @@
 				{/each}
 			</div>
 			<div class="mt-6 text-right text-slate-600 dark:text-slate-200">
-				Aktualisiert am:
+				Daten vom:
 				{new Date(data.current.dt * 1000).toLocaleString('de-DE', {
 					day: '2-digit',
 					month: '2-digit',

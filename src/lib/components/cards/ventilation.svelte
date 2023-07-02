@@ -10,6 +10,7 @@
 	export let debug = false;
 	export let timeout: number;
 	let data: StateResponse;
+	let updated: Date;
 	let interval: NodeJS.Timer;
 
 	const getData = async () => {
@@ -18,9 +19,11 @@
 		} else {
 			interval = setInterval(async () => {
 				data = await ApiClient.getClient().getState();
+				updated = new Date();
 			}, timeout);
 			data = await ApiClient.getClient().getState();
 		}
+		updated = new Date();
 	};
 
 	beforeUpdate(() => {
@@ -101,6 +104,16 @@
 					</div>
 				</ListgroupItem>
 			</Listgroup>
+			<div class="text-right text-slate-600 dark:text-slate-200">
+				Daten vom:
+				{updated.toLocaleString('de-DE', {
+					day: '2-digit',
+					month: '2-digit',
+					year: 'numeric',
+					hour: '2-digit',
+					minute: '2-digit'
+				})} Uhr
+			</div>
 		</Card>
 	{:catch e}
 		<Error error={e} />

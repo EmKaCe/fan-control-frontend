@@ -80,7 +80,7 @@
 				</ListgroupItem>
 			</Listgroup>
 			<div class="text-right text-slate-600 dark:text-slate-200">
-				Aktualisiert am:
+				Daten vom:
 				{new Date(data.date).toLocaleString('de-DE', {
 					day: '2-digit',
 					month: '2-digit',
