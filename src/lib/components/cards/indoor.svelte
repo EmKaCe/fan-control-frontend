@@ -28,7 +28,7 @@
 		} else {
 			if (!timeout) throw new AxiosError('Timeout not set');
 			setTimeout(async () => {
-				data = await ApiClient.getClient().getIndoor();
+				getData();
 			}, timeout);
 			data = await ApiClient.getClient().getIndoor();
 		}
