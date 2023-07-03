@@ -44,10 +44,14 @@
 				labelOffset: -10,
 				transform: (date: string) => new Date(date),
 				tickFormat(t: Date, i) {
-					return t.toLocaleTimeString('de-DE', {
-						hour: '2-digit',
-						minute: '2-digit'
-					});
+					if (i % 5 === 0) {
+						// Only show label for every fifth tick
+						return t.toLocaleTimeString('de-DE', {
+							hour: '2-digit',
+							minute: '2-digit'
+						});
+					}
+					return ''; // Empty string for other ticks
 				},
 				line: true
 			},
@@ -82,10 +86,14 @@
 				labelOffset: -10,
 				transform: (date: string) => new Date(date),
 				tickFormat(t: Date, i) {
-					return t.toLocaleTimeString('de-DE', {
-						hour: '2-digit',
-						minute: '2-digit'
-					});
+					if (i % 5 === 0) {
+						// Only show label for every fifth tick
+						return t.toLocaleTimeString('de-DE', {
+							hour: '2-digit',
+							minute: '2-digit'
+						});
+					}
+					return ''; // Empty string for other ticks
 				},
 				line: true
 			},
@@ -120,10 +128,14 @@
 				labelOffset: -10,
 				transform: (date: string) => new Date(date),
 				tickFormat(t: Date, i) {
-					return t.toLocaleTimeString('de-DE', {
-						hour: '2-digit',
-						minute: '2-digit'
-					});
+					if (i % 5 === 0) {
+						// Only show label for every fifth tick
+						return t.toLocaleTimeString('de-DE', {
+							hour: '2-digit',
+							minute: '2-digit'
+						});
+					}
+					return ''; // Empty string for other ticks
 				},
 				line: true
 			},
