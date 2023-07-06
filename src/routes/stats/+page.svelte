@@ -177,11 +177,11 @@
 				<div class="flex flex-row justify-end gap-5">
 					<span class="flex items-center">
 						<Indicator size="md" class="mr-1.5 bg-red-600" />
-						Innensensor
+						Außensensor
 					</span>
 					<span class="flex items-center">
 						<Indicator size="md" class="mr-1.5 bg-sky-500" />
-						Außensensor
+						Innensensor
 					</span>
 				</div>
 			</Card>
@@ -189,11 +189,11 @@
 				<div class="flex flex-row justify-end gap-5">
 					<span class="flex items-center">
 						<Indicator size="md" class="mr-1.5 bg-red-600" />
-						Innensensor
+						Außensensor
 					</span>
 					<span class="flex items-center">
 						<Indicator size="md" class="mr-1.5 bg-sky-500" />
-						Außensensor
+						Innensensor
 					</span>
 				</div>
 			</Card>
@@ -201,11 +201,11 @@
 				<div class="flex flex-row justify-end gap-5">
 					<span class="flex items-center">
 						<Indicator size="md" class="mr-1.5 bg-red-600" />
-						Innensensor
+						Außensensor
 					</span>
 					<span class="flex items-center">
 						<Indicator size="md" class="mr-1.5 bg-sky-500" />
-						Außensensor
+						Innensensor
 					</span>
 				</div>
 			</Card>
